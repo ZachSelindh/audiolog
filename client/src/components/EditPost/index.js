@@ -13,6 +13,7 @@ class EditPost extends Component {
       description: "",
       updated: false
     };
+    this.componentDidMount.bind(this);
   }
 
   componentWillMount = () => {
@@ -27,13 +28,9 @@ class EditPost extends Component {
     });
   };
 
-  componentWillMount = () => {
-    console.log(this.props.location.state.props);
-  };
-
   componentDidMount = () => {
     this.setState({
-      id: this.props.location.state.props._id,
+      id: this.props.location.state.props.postID,
       title: this.props.location.state.props.title,
       description: this.props.location.state.props.description
     });
@@ -42,13 +39,14 @@ class EditPost extends Component {
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value, updated: false });
-    console.log(this.state);
   };
 
   handleSubmit = event => {
     event.preventDefault();
+    console.log(this.state);
+    event.preventDefault();
     API.updatePost(
-      this.props.location.state.props._id,
+      this.state.id,
       {
         title: this.state.title,
         description: this.state.description,
@@ -86,7 +84,7 @@ class EditPost extends Component {
               <form
                 className="post-form"
                 autoComplete="off"
-                onSubmit={() => this.handleSubmit()}
+                onSubmit={this.handleSubmit}
                 method="PUT"
               >
                 <input

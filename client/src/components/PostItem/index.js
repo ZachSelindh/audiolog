@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import DeleteButton from "../Buttons/DeleteButton";
 import UpdateButton from "../Buttons/UpdateButton";
-import CompleteButton from "../Buttons/CompleteButton";
 import API from "../../utils/API";
 import history from "../../utils/history";
 import "./style.css";
@@ -75,15 +74,10 @@ class PostItem extends Component {
               <div>
                 {this.props.completed ? null : (
                   <div>
-                    <CompleteButton
-                      postID={this.props.postID}
-                      author={this.props.author}
-                      calltodb={this.props.calltodb}
-                    />
                     <UpdateButton
                       postID={this.props.postID}
                       title={this.props.title}
-                      description={this.props.title}
+                      description={this.props.description}
                     />
                   </div>
                 )}

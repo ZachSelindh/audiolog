@@ -55,19 +55,17 @@ router.get("/author/:userID", verifyToken, (req, res) => {
 });
 
 // Update/edit a post
-router.put("/post/update/:postID", verifyToken, (req, res) => {
+router.put("/update/:postID", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
     // Return updated posts
-    console.log(req.params)
-    /* Post.findOneAndUpdate(
-      
-     { _id: req.params.postID, author: req.body.user },
+    Post.findOneAndUpdate(
+      { _id: req.params.postID, author: req.body.user },
       { title: req.body.title, description: req.body.description }
     )
       .then(updatedPost => res.send(updatedPost))
-      .catch(err => res.status(422).json(err)) */
+      .catch(err => res.status(422).json(err))
   );
 });
 

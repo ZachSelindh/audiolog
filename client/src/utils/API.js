@@ -22,10 +22,9 @@ export default {
     });
   },
   updatePost: function(updatePostID, newPostData, token) {
-    console.log(updatePostID);
-    /* return axios.put("/api/posts/post/update/" + updatePostID, newPostData, {
+    return axios.put("/api/posts/update/" + updatePostID, newPostData, {
       headers: { Authorization: "Bearer " + token }
-    }); */
+    });
   },
   deletePost: function(postDelete, token) {
     return axios.delete("/api/posts/post/delete/", {
