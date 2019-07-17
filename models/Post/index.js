@@ -5,7 +5,8 @@ const postSchema = new Schema({
   title: { type: String, required: true },
   author: { type: Schema.Types.ObjectId, ref: "User" },
   description: { type: String, required: true },
-  submitted_at: { type: Date, required: true, default: Date.now }
+  submitted_at: { type: Date, required: true, default: Date.now },
+  comments: { type: Array, default: [] }
 });
 
 const Post = mongoose.model("Post", postSchema);

@@ -136,7 +136,7 @@ router.route("/login-new-user").post((req, res) => {
     .catch(err => res.status(422).json(err));
 });
 
-// API route for getting username for Todo component.
+// API route for getting username from ID.
 router.get("/get-user/:userID", verifyToken, (req, res) => {
   checkToken(
     req,

@@ -14,23 +14,6 @@ class PostsPage extends Component {
     };
   }
 
-  calltodb = () => {
-    API.getAllPosts(localStorage.getItem("token"))
-      .then(res => this.setState({ pulledPosts: res.data }))
-      .catch(err => {
-        if (err.response.status === 403) {
-          localStorage.removeItem("currentUser");
-          localStorage.removeItem("token");
-          history.push({
-            pathname: "/login",
-            state: { redirErr: "Your session has expired. Please log in" }
-          });
-        } else {
-          console.log(err);
-        }
-      });
-  };
-
   componentDidMount = () => {
     API.checkToken(localStorage.getItem("token"))
       .then(res => {
@@ -53,13 +36,39 @@ class PostsPage extends Component {
       });
   };
 
+  calltodb = () => {
+    API.getAllPosts(localStorage.getItem("token"))
+      .then(res => this.setState({ pulledPosts: res.data }))
+      .catch(err => {
+        if (err.response.status === 403) {
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("token");
+          history.push({
+            pathname: "/login",
+            state: { redirErr: "Your session has expired. Please log in" }
+          });
+        } else {
+          console.log(err);
+        }
+      });
+  };
+
+  handleClick = () => {
+    history.push("/create");
+  };
+
   render() {
     return (
       <div>
         <Header />
         <div className="container">
-          <div className="display-area-z col-8">
+          <div className="display-area-z col-10">
             <h3> Welcome back, {this.state.currentUser}!</h3>
+            <br />
+            <button onClick={this.handleClick} className="btn-lg btn-light">
+              + Create a New Post
+            </button>
+            <br />
             <br />
             <h1>Posts:</h1>
             {this.state.pulledPosts.length ? (
@@ -76,7 +85,7 @@ class PostsPage extends Component {
                 );
               })
             ) : (
-              <h3>No Results</h3>
+              <h3>No Posts Found</h3>
             )}
           </div>
         </div>

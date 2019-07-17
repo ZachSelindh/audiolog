@@ -37,12 +37,6 @@ class Header extends Component {
         <div className="col-12">
           <div className="row">
             <div className="col-sm-12 col-md-3">
-              <img
-                alt="note"
-                src="https://cdn2.iconfinder.com/data/icons/music-player-icons-filled/50/Big_Note-512.png"
-                height="2px"
-                width="2px"
-              />{" "}
               <h1>AudioLog</h1>
             </div>
             <div className="col-sm-6 col-md-4">

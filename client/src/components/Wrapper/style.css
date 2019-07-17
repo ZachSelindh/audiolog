@@ -1,5 +1,12 @@
 body {
   background-image: linear-gradient(-75deg, black, rgb(0, 0, 129));
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   font-family: "Noto Sans", sans-serif;
 }
 

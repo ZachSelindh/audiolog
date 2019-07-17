@@ -3,3 +3,11 @@
   margin-bottom: 1em;
   border-bottom: 2px solid black;
 }
+
+.form-z {
+  min-height: 15em;
+}
+
+.error-message {
+  color: yellow;
+}

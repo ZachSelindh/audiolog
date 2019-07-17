@@ -43,8 +43,6 @@ class EditPost extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    console.log(this.state);
-    event.preventDefault();
     API.updatePost(
       this.state.id,
       {

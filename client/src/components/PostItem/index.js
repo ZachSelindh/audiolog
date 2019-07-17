@@ -10,6 +10,7 @@ class PostItem extends Component {
     super(props);
     this.state = {
       username: "",
+      photoURL: "",
       validUser: false,
       currentAuthor: false
     };
@@ -23,6 +24,7 @@ class PostItem extends Component {
       .then(res => {
         this.setState({
           username: res.data.username,
+          photoURL: res.data.photoURL,
           validUser: true
         });
       })
@@ -45,18 +47,28 @@ class PostItem extends Component {
     history.push(`/profile/${this.props.author}`);
   };
 
+  handlePostClick = () => {
+    history.push(`/post/${this.props.postID}`);
+  };
+
   render() {
     return (
       <div className="container todo-item">
+        <div className="row" />
         <div className="row">
-          <div className="col-12">
-            <h1>{this.props.title}</h1>
+          <div className="col-6">
+            <h1 onClick={() => this.handlePostClick()}>{this.props.title}</h1>
           </div>
-        </div>
-        <div className="row">
-          <div className="col-8">
+          <div className="col-1">
+            <img
+              alt="author"
+              src={this.state.photoURL}
+              height="50px"
+              width="50px"
+            />
+          </div>
+          <div className="col-2">
             <h5>
-              Submitted by:{" "}
               {this.state.validUser ? (
                 <span className="user-link" onClick={() => this.handleClick()}>
                   {this.state.username}
@@ -65,11 +77,8 @@ class PostItem extends Component {
                 <span>{this.state.username}</span>
               )}
             </h5>
-
-            <p>{this.props.description}</p>
           </div>
-
-          <div className="col-4">
+          <div className="col-3">
             {this.state.currentAuthor ? (
               <div>
                 {this.props.completed ? null : (

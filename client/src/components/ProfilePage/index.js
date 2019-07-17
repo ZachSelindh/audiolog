@@ -75,8 +75,10 @@ class ProfilePage extends Component {
               height="300px"
               width="300px"
             />
-            <h3>Username:</h3> <p>{this.state.username}</p>
-            <h4>Email:</h4> <p>{this.state.email}</p>
+            <br />
+            <br />
+            <h2>{this.state.username}</h2>
+            <h4>{this.state.email}</h4>
             <br />
             <h1>User's Posts:</h1>
             {this.state.todos.length ? (
@@ -91,7 +93,7 @@ class ProfilePage extends Component {
                 );
               })
             ) : (
-              <h3>This user hasn't created any todos yet</h3>
+              <h3>This user hasn't created any posts yet</h3>
             )}
           </div>
         </div>
