@@ -31,6 +31,10 @@ class Header extends Component {
     localStorage.removeItem("token");
   };
 
+  handleClick = () => {
+    var thisuser = localStorage.getItem("currentUser");
+  };
+
   render() {
     return (
       <div className="row todo-header">
@@ -40,7 +44,7 @@ class Header extends Component {
               <h1 id="header-title">AudioLog</h1>
             </div>
             <div className="col-sm-6 col-md-3">
-              <p>A MERN-stack todo application</p>
+              <p />
             </div>
             <div className="col-sm-6 col-md-5">
               <div id="nav-header-z" className="row">
@@ -48,10 +52,15 @@ class Header extends Component {
                   <a className="nav-link-z" href="/">
                     Home
                   </a>
-                  <a className="nav-link-z" href="/completed">
-                    Completed
+                  <a
+                    className="nav-link-z"
+                    href={`/profile/${localStorage.getItem("currentUser")}`}
+                  >
+                    Your Profile
                   </a>
-
+                  {/* <button className="nav-link-z" onClick={this.handleClick}>
+                    Your Profile
+                  </button> */}
                   <a
                     className="nav-link-z"
                     onClick={() => this.logOutUser()}
