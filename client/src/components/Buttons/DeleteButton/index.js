@@ -6,24 +6,18 @@ import "./style.css";
 class DeleteButton extends Component {
   handleClick = () => {
     var currentUser = localStorage.getItem("currentUser");
-    var thisPostid = this.props.todoID;
-    console.log(thisPostid);
+    var thisPostid = this.props.postID;
     if (
       typeof currentUser !== "undefined" &&
       typeof thisPostid !== "undefined"
     ) {
-      API.deleteTodo(
+      API.deletePost(
         { id: thisPostid, user: currentUser },
         localStorage.getItem("token")
       )
         .then(res => {
-          if (res.data.deletedTodo.completed === true) {
-            this.props.calltodbCompleted();
-          } else if (res.data.deletedTodo.completed === false) {
-            this.props.calltodbNotCompleted();
-          } else {
-            console.log(res);
-          }
+          console.log(res.data.deletedPost);
+          this.props.calltodb();
         })
         .catch(err => {
           if (err.response.status === 403) {

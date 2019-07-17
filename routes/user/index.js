@@ -91,7 +91,7 @@ router.route("/login-user").post((req, res) => {
               jwt.sign(
                 { foundUser },
                 process.env.SECRET_KEY,
-                { expiresIn: "200s" },
+                { expiresIn: process.env.JWT_LENGTH },
                 (err, token) => {
                   res.json({ token, foundUser, redirectURL: "/" });
                 }
@@ -142,7 +142,7 @@ router.get("/get-user/:userID", verifyToken, (req, res) => {
         const { username, photoURL, email } = user;
         res.send({ username, photoURL, email });
       })
-      .catch(err => res.status(422).json({ err }))
+      .catch(err => res.status(422).json(err))
   );
 });
 

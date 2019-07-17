@@ -15,7 +15,10 @@ class Header extends Component {
         .catch(err => {
           if (err.response.status === 403) {
             this.setState({ loggedIn: false });
-            history.push("/login");
+            history.push({
+              pathname: "/login",
+              state: { redirErr: "Your session has expired. Please log in" }
+            });
           }
         });
     } else {
@@ -33,13 +36,13 @@ class Header extends Component {
       <div className="row todo-header">
         <div className="col-12">
           <div className="row">
-            <div className="col-sm-12 col-md-5">
-              <h1>MERN-stack Todo List</h1>
+            <div className="col-sm-12 col-md-4">
+              <h1 id="header-title">AudioLog</h1>
             </div>
             <div className="col-sm-6 col-md-3">
               <p>A MERN-stack todo application</p>
             </div>
-            <div className="col-sm-6 col-md-4">
+            <div className="col-sm-6 col-md-5">
               <div id="nav-header-z" className="row">
                 <div className="nav-bar-z">
                   <a className="nav-link-z" href="/">

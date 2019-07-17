@@ -13,7 +13,7 @@ class CreateBar extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    API.saveTodo(
+    API.savePost(
       {
         title: this.state.title,
         description: this.state.description,
@@ -25,10 +25,9 @@ class CreateBar extends Component {
       .then(
         res => console.log(res),
         this.setState({ title: "", description: "" }),
-        this.props.calltodbNotCompleted()
+        this.props.calltodb()
       )
       .catch(err => console.log(err));
-    this.setState({ title: "", description: "" });
   };
 
   handleInputChange = event => {
@@ -39,12 +38,11 @@ class CreateBar extends Component {
   render() {
     return (
       <div>
-        <h1>Enter new Todo:</h1>
+        <h1>Enter new Post:</h1>
         <form
-          className="todo-form"
+          className="post-form"
           autoComplete="off"
           onSubmit={this.handleSubmit}
-          action="/api/todos"
           method="POST"
         >
           <input

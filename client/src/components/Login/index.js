@@ -4,8 +4,8 @@ import API from "../../utils/API";
 import history from "../../utils/history";
 
 class LoginPage extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: "",
       password: "",
@@ -13,13 +13,32 @@ class LoginPage extends Component {
     };
   }
 
-  componentDidMount = () => {
+  componentWillMount = () => {
     API.checkToken(localStorage.getItem("token"))
       .then(res => {
         console.log(res.data.message);
         history.push("/");
       })
-      .catch(err => console.log(err));
+      .catch(err => {
+        if (err.response.status === 403) {
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("token");
+          history.push({
+            pathname: "/login"
+          });
+        } else {
+        }
+      });
+  };
+
+  componentDidMount = () => {
+    if (typeof this.props.location.state !== "undefined") {
+      this.setState({
+        errors: [{ nameError: this.props.location.state.redirErr }]
+      });
+    } else {
+      console.log(this.props.location);
+    }
   };
 
   handleSubmit = event => {
@@ -43,7 +62,9 @@ class LoginPage extends Component {
         .catch(err => {
           console.log(err.response.data.errorMessage);
           this.setState({
-            errors: [{ nameError: "Username or password do not match" }]
+            errors: [
+              { nameError: "Username or password do not match our records" }
+            ]
           });
         });
     } else {

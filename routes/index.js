@@ -6,7 +6,7 @@ const tokenRoutes = require("./token");
 require("dotenv").config();
 
 // API Routes
-router.use("/api/todos", apiRoutes);
+router.use("/api/posts", apiRoutes);
 
 // Token Check route
 router.use("/check-token", tokenRoutes);

@@ -6,7 +6,7 @@ import API from "../../utils/API";
 import history from "../../utils/history";
 import "./style.css";
 
-class ToDoItem extends Component {
+class PostItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,6 +30,14 @@ class ToDoItem extends Component {
       .catch(err => {
         if (err.response.status === 422) {
           this.setState({ username: "User not found", validUser: false });
+        } else if (err.response.status === 403) {
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("token");
+          history.push({
+            pathname: "/login",
+            state: { redirErr: "Your session has expired. Please log in" }
+          });
+        } else {
         }
       });
   };
@@ -51,7 +59,7 @@ class ToDoItem extends Component {
             <h5>
               Submitted by:{" "}
               {this.state.validUser ? (
-                <span className="user-link" onClick={this.handleClick}>
+                <span className="user-link" onClick={() => this.handleClick()}>
                   {this.state.username}
                 </span>
               ) : (
@@ -60,9 +68,6 @@ class ToDoItem extends Component {
             </h5>
 
             <p>{this.props.description}</p>
-            <h4>
-              Status: {this.props.completed ? "Completed!" : "Incomplete"}
-            </h4>
           </div>
 
           <div className="col-4">
@@ -71,18 +76,21 @@ class ToDoItem extends Component {
                 {this.props.completed ? null : (
                   <div>
                     <CompleteButton
-                      todoID={this.props.todoID}
+                      postID={this.props.postID}
                       author={this.props.author}
-                      calltodbNotCompleted={this.props.calltodbNotCompleted}
+                      calltodb={this.props.calltodb}
                     />
-                    <UpdateButton todoID={this.props.todoID} />
+                    <UpdateButton
+                      postID={this.props.postID}
+                      title={this.props.title}
+                      description={this.props.title}
+                    />
                   </div>
                 )}
                 <DeleteButton
-                  todoID={this.props.todoID}
+                  postID={this.props.postID}
                   author={this.props.author}
-                  calltodbNotCompleted={this.props.calltodbNotCompleted}
-                  calltodbCompleted={this.props.calltodbCompleted}
+                  calltodb={this.props.calltodb}
                 />
               </div>
             ) : null}
@@ -93,4 +101,4 @@ class ToDoItem extends Component {
   }
 }
 
-export default ToDoItem;
+export default PostItem;

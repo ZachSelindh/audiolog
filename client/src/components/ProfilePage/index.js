@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Header from "../Header";
-import ToDoItem from "../ToDoItem";
+import PostItem from "../PostItem";
 import API from "../../utils/API";
-import "./style.css";
 import history from "../../utils/history";
+import "./style.css";
 
 class ProfilePage extends Component {
   constructor(props) {
@@ -14,11 +14,11 @@ class ProfilePage extends Component {
       email: "",
       todos: []
     };
-    this.getTodosFromdb.bind(this);
+    this.getPostsFromdb.bind(this);
   }
 
-  getTodosFromdb = () => {
-    API.getAuthoredTodos(
+  getPostsFromdb = () => {
+    API.getAuthoredPosts(
       this.props.location.pathname.replace("/profile/", ""),
       localStorage.getItem("token")
     )
@@ -35,7 +35,10 @@ class ProfilePage extends Component {
         if (err.response.status === 403) {
           localStorage.removeItem("currentUser");
           localStorage.removeItem("token");
-          history.push("/login");
+          history.push({
+            pathname: "/login",
+            state: { redirErr: "Your session has expired. Please log in" }
+          });
         } else {
           console.log(err);
         }
@@ -53,7 +56,7 @@ class ProfilePage extends Component {
           photoURL: res.data.photoURL,
           email: res.data.email
         });
-        this.getTodosFromdb();
+        this.getPostsFromdb();
       })
       .catch(err => console.log(err));
   };
@@ -75,16 +78,15 @@ class ProfilePage extends Component {
             <h3>Username:</h3> <p>{this.state.username}</p>
             <h4>Email:</h4> <p>{this.state.email}</p>
             <br />
-            <h1>Todo List:</h1>
+            <h1>User's Posts:</h1>
             {this.state.todos.length ? (
-              this.state.todos.map(Todo => {
+              this.state.todos.map(Post => {
                 return (
-                  <ToDoItem
-                    key={Todo._id}
-                    title={Todo.title}
-                    author={Todo.author}
-                    description={Todo.description}
-                    completed={Todo.completed}
+                  <PostItem
+                    key={Post._id}
+                    title={Post.title}
+                    author={Post.author}
+                    description={Post.description}
                   />
                 );
               })

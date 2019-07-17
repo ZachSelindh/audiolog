@@ -2,23 +2,32 @@ import React, { Component } from "react";
 import Header from "../Header";
 import API from "../../utils/API";
 import CreateBar from "../CreateBar";
-import ToDoItem from "../ToDoItem";
+import PostItem from "../PostItem";
 import history from "../../utils/history";
 import "./style.css";
 
-class ToDoPage extends Component {
+class PostsPage extends Component {
   constructor() {
     super();
     this.state = {
-      pulledTodos: []
+      pulledPosts: []
     };
   }
 
-  calltodbNotCompleted = () => {
-    API.getNotCompletedTodos(localStorage.getItem("token"))
-      .then(res => this.setState({ pulledTodos: res.data }))
+  calltodb = () => {
+    API.getAllPosts(localStorage.getItem("token"))
+      .then(res => this.setState({ pulledPosts: res.data }))
       .catch(err => {
-        console.log(err.response.status);
+        if (err.response.status === 403) {
+          localStorage.removeItem("currentUser");
+          localStorage.removeItem("token");
+          history.push({
+            pathname: "/login",
+            state: { redirErr: "Your session has expired. Please log in" }
+          });
+        } else {
+          console.log(err);
+        }
       });
   };
 
@@ -26,7 +35,7 @@ class ToDoPage extends Component {
     API.checkToken(localStorage.getItem("token"))
       .then(res => {
         console.log(res.data.message);
-        this.calltodbNotCompleted();
+        this.calltodb();
       })
       .catch(err => {
         if (err.response.status === 403) {
@@ -46,19 +55,18 @@ class ToDoPage extends Component {
         <div className="container">
           <div id="display-area-z" className="col-8">
             {/* Passing function as prop in order to refresh call after todo is submitted. */}
-            <CreateBar calltodbNotCompleted={this.calltodbNotCompleted} />
+            <CreateBar calltodb={this.calltodb} />
             <h1>Todo List:</h1>
-            {this.state.pulledTodos.length ? (
-              this.state.pulledTodos.map(Todo => {
+            {this.state.pulledPosts.length ? (
+              this.state.pulledPosts.map(Post => {
                 return (
-                  <ToDoItem
-                    key={Todo._id}
-                    todoID={Todo._id}
-                    title={Todo.title}
-                    author={Todo.author}
-                    description={Todo.description}
-                    completed={Todo.completed}
-                    calltodbNotCompleted={this.calltodbNotCompleted}
+                  <PostItem
+                    key={Post._id}
+                    postID={Post._id}
+                    title={Post.title}
+                    author={Post.author}
+                    description={Post.description}
+                    calltodb={this.calltodb}
                   />
                 );
               })
@@ -72,4 +80,4 @@ class ToDoPage extends Component {
   }
 }
 
-export default ToDoPage;
+export default PostsPage;

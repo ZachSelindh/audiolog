@@ -1,5 +1,5 @@
 {
-  "name": "react-todo-mern",
+  "name": "audiolog",
   "version": "1.0.0",
   "description": "MERN-stack to-do app with user auth",
   "main": "server.js",
@@ -13,14 +13,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZachSelindh/react-todo-mern.git"
+    "url": "git+https://github.com/ZachSelindh/audiolog.git"
   },
   "author": "zachSelindh",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ZachSelindh/react-todo-mern/issues"
+    "url": "https://github.com/ZachSelindh/audiolog/issues"
   },
-  "homepage": "https://github.com/ZachSelindh/react-todo-mern#readme",
+  "homepage": "https://github.com/ZachSelindh/audiolog#readme",
   "dependencies": {
     "bcrypt": "^3.0.6",
     "bcryptjs": "^2.4.3",

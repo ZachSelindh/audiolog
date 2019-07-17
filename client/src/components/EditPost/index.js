@@ -4,7 +4,7 @@ import API from "../../utils/API";
 import history from "../../utils/history";
 import "./style.css";
 
-class EditTodo extends Component {
+class EditPost extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,19 +16,19 @@ class EditTodo extends Component {
   }
 
   componentWillMount = () => {
-    API.checkToken(localStorage.getItem("token"))
-      .then(res => {
-        console.log(res.data.message);
-      })
-      .catch(err => {
-        if (err.response.status === 403) {
-          localStorage.removeItem("currentUser");
-          localStorage.removeItem("token");
-          history.push("/login");
-        } else {
-          console.log(err);
-        }
-      });
+    API.checkToken(localStorage.getItem("token")).catch(err => {
+      if (err.response.status === 403) {
+        localStorage.removeItem("currentUser");
+        localStorage.removeItem("token");
+        history.push("/login");
+      } else {
+        console.log(err);
+      }
+    });
+  };
+
+  componentWillMount = () => {
+    console.log(this.props.location.state.props);
   };
 
   componentDidMount = () => {
@@ -42,12 +42,13 @@ class EditTodo extends Component {
   handleInputChange = event => {
     const { name, value } = event.target;
     this.setState({ [name]: value, updated: false });
+    console.log(this.state);
   };
 
   handleSubmit = event => {
     event.preventDefault();
-    API.updateTodo(
-      this.state.id,
+    API.updatePost(
+      this.props.location.state.props._id,
       {
         title: this.state.title,
         description: this.state.description,
@@ -63,7 +64,10 @@ class EditTodo extends Component {
         if (err.response.status === 403) {
           localStorage.removeItem("currentUser");
           localStorage.removeItem("token");
-          history.push("/login");
+          history.push({
+            pathname: "/login",
+            state: { redirErr: "Your session has expired. Please log in" }
+          });
         } else {
           console.log(err);
         }
@@ -77,12 +81,12 @@ class EditTodo extends Component {
         <div className="container">
           <div id="display-area-z" className="col-8 edit-page">
             <div>
-              <h1>Edit your Todo:</h1>
-              {this.state.updated ? <p>Todo updated!</p> : null}
+              <h1>Edit your Post:</h1>
+              {this.state.updated ? <p>Post successfully updated!</p> : null}
               <form
-                className="todo-form"
+                className="post-form"
                 autoComplete="off"
-                onSubmit={this.handleSubmit}
+                onSubmit={() => this.handleSubmit()}
                 method="PUT"
               >
                 <input
@@ -112,4 +116,4 @@ class EditTodo extends Component {
   }
 }
 
-export default EditTodo;
+export default EditPost;

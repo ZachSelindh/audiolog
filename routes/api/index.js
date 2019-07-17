@@ -1,43 +1,20 @@
 const express = require("express");
 const router = express.Router();
-const Todo = require("../../models/TodoItem");
+const Post = require("../../models/Post");
 const verifyToken = require("../../auth/verifyToken");
 const checkToken = require("../../auth/checkToken");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 
+// Get all posts for home page
 router.get("/", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
-    // Return todos
-    Todo.find({})
+    // Return all posts
+    Post.find({})
       .sort({ submitted_at: -1 })
-      .then(todo => res.send(todo))
-  );
-});
-
-router.get("/not-completed", verifyToken, (req, res) => {
-  checkToken(
-    req,
-    res,
-    // Return not completed todos
-    Todo.find({ completed: false })
-      .sort({ submitted_at: -1 })
-      .then(todos => res.json(todos))
-      .catch(err => res.status(420).json(err))
-  );
-});
-
-router.get("/completed", verifyToken, (req, res) => {
-  checkToken(
-    req,
-    res,
-    // Return todos
-    Todo.find({ completed: true })
-      .sort({ submitted_at: -1 })
-      .then(todos => res.send(todos))
-      .catch(err => res.status(422).json(err))
+      .then(posts => res.send(posts))
   );
 });
 
@@ -46,20 +23,20 @@ router.post("/", verifyToken, (req, res) => {
     req,
     res,
     // Create todo
-    Todo.create(req.body)
-      .then(newTodo => res.json(newTodo))
-      .catch(err => res.status(422).json(err))
+    Post.create(req.body)
+      .then(newPost => res.json(newPost))
+      .catch(err => res.json(err))
   );
 });
 
-// Route for getting a particular todo
-router.get("/todo/:todoID", verifyToken, (req, res) => {
+// Route for getting a particular post
+router.get("/:postID", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
-    // Get todo info
-    Todo.findById({ _id: req.params.todoID })
-      .then(todo => res.send(todo))
+    // Get post info
+    Post.findById({ _id: req.params.postID })
+      .then(foundPost => res.send(foundPost))
       .catch(err => res.json(err))
   );
 });
@@ -69,46 +46,33 @@ router.get("/author/:userID", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
-    // Return todos by author
-    Todo.find({ author: req.params.userID })
+    // Return posts by author
+    Post.find({ author: req.params.userID })
       .sort({ submitted_at: -1 })
-      .then(todos => res.send(todos))
+      .then(authoredPosts => res.send(authoredPosts))
       .catch(err => res.status(422).json(err))
   );
 });
 
-// Update/edit a todo
-router.put("/todo/update/:todoID", verifyToken, (req, res) => {
+// Update/edit a post
+router.put("/post/update/:postID", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
-    // Return updated todos
-    Todo.findOneAndUpdate(
-      { _id: req.params.todoID, author: req.body.user, completed: false },
+    // Return updated posts
+    console.log(req.params)
+    /* Post.findOneAndUpdate(
+      
+     { _id: req.params.postID, author: req.body.user },
       { title: req.body.title, description: req.body.description }
     )
-      .then(updatedTodo => res.send(updatedTodo))
-      .catch(err => res.json(err))
-  );
-});
-
-// Mark a todo completed
-router.put("/todo/complete/:todoID", verifyToken, (req, res) => {
-  checkToken(
-    req,
-    res,
-    // Return updated todos
-    Todo.findOneAndUpdate(
-      { _id: req.params.todoID, author: req.body.author, completed: false },
-      { completed: true }
-    )
-      .then(completedTodo => res.send(completedTodo))
-      .catch(err => res.json(err))
+      .then(updatedPost => res.send(updatedPost))
+      .catch(err => res.status(422).json(err)) */
   );
 });
 
 // Route for deleing a todo
-router.delete("/todo/delete/", (config, res) => {
+router.delete("/post/delete/", (config, res) => {
   const authHeader = config.body.headers.Authorization;
   if (typeof authHeader !== "undefined") {
     const authBearer = authHeader.split(" ");
@@ -120,9 +84,9 @@ router.delete("/todo/delete/", (config, res) => {
       } else {
         // Return deleted todos
         const { id, user } = config.body;
-        Todo.findOneAndDelete({ _id: id, author: user })
-          .then(deletedTodo => {
-            res.status(200).json({ deletedTodo });
+        Post.findOneAndDelete({ _id: id, author: user })
+          .then(deletedPost => {
+            res.status(200).json({ deletedPost });
           })
           .catch(err => res.status(422).send(err));
       }

@@ -1,46 +1,37 @@
 import axios from "axios";
 
 export default {
-  getNotCompletedTodos: function(token) {
-    return axios.get("/api/todos/not-completed", {
+  getAllPosts: function(token) {
+    return axios.get("/api/posts/", {
       headers: { Authorization: "Bearer " + token }
     });
   },
-  getCompletedTodos: function(token) {
-    return axios.get("/api/todos/completed", {
+  getPost: function(todoID, token) {
+    return axios.get("/api/posts/" + todoID, {
       headers: { Authorization: "Bearer " + token }
     });
   },
-  getTodo: function(todoID, token) {
-    return axios.get("/api/todos/todo/" + todoID, {
+  getAuthoredPosts: function(userID, token) {
+    return axios.get("/api/posts/author/" + userID, {
       headers: { Authorization: "Bearer " + token }
     });
   },
-  getAuthoredTodos: function(userID, token) {
-    return axios.get("/api/todos/author/" + userID, {
+  savePost: function(postData, token) {
+    return axios.post("/api/posts", postData, {
       headers: { Authorization: "Bearer " + token }
     });
   },
-  saveTodo: function(todoData, token) {
-    return axios.post("/api/todos", todoData, {
+  updatePost: function(updatePostID, newPostData, token) {
+    console.log(updatePostID);
+    /* return axios.put("/api/posts/post/update/" + updatePostID, newPostData, {
       headers: { Authorization: "Bearer " + token }
-    });
+    }); */
   },
-  completeTodo: function(compTodoID, compTodoData, token) {
-    return axios.put("/api/todos/todo/complete/" + compTodoID, compTodoData, {
-      headers: { Authorization: "Bearer " + token }
-    });
-  },
-  updateTodo: function(updateTodoID, newTodoData, token) {
-    return axios.put("/api/todos/todo/update/" + updateTodoID, newTodoData, {
-      headers: { Authorization: "Bearer " + token }
-    });
-  },
-  deleteTodo: function(todoDelete, token) {
-    return axios.delete("/api/todos/todo/delete/", {
+  deletePost: function(postDelete, token) {
+    return axios.delete("/api/posts/post/delete/", {
       data: {
-        id: todoDelete.id,
-        user: todoDelete.user,
+        id: postDelete.id,
+        user: postDelete.user,
         headers: { Authorization: "Bearer " + token }
       }
     });
