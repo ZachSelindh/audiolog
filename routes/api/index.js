@@ -18,11 +18,12 @@ router.get("/", verifyToken, (req, res) => {
   );
 });
 
+// Create new post
 router.post("/", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
-    // Create todo
+    // Create post
     Post.create(req.body)
       .then(newPost => res.json(newPost))
       .catch(err => res.json(err))

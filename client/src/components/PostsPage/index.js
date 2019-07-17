@@ -9,7 +9,8 @@ class PostsPage extends Component {
   constructor() {
     super();
     this.state = {
-      pulledPosts: []
+      pulledPosts: [],
+      currentUser: ""
     };
   }
 
@@ -33,7 +34,12 @@ class PostsPage extends Component {
   componentDidMount = () => {
     API.checkToken(localStorage.getItem("token"))
       .then(res => {
-        console.log(res.data.message);
+        API.getUser(
+          localStorage.getItem("currentUser"),
+          localStorage.getItem("token")
+        )
+          .then(res => this.setState({ currentUser: res.data.username }))
+          .catch(err => console.log(err));
         this.calltodb();
       })
       .catch(err => {
@@ -53,6 +59,8 @@ class PostsPage extends Component {
         <Header />
         <div className="container">
           <div className="display-area-z col-8">
+            <h3> Welcome back, {this.state.currentUser}!</h3>
+            <br />
             <h1>Posts:</h1>
             {this.state.pulledPosts.length ? (
               this.state.pulledPosts.map(Post => {

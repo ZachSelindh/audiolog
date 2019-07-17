@@ -6,8 +6,8 @@ export default {
       headers: { Authorization: "Bearer " + token }
     });
   },
-  getPost: function(todoID, token) {
-    return axios.get("/api/posts/" + todoID, {
+  getPost: function(postID, token) {
+    return axios.get("/api/posts/" + postID, {
       headers: { Authorization: "Bearer " + token }
     });
   },
