@@ -31,20 +31,16 @@ class Header extends Component {
     localStorage.removeItem("token");
   };
 
-  handleClick = () => {
-    var thisuser = localStorage.getItem("currentUser");
-  };
-
   render() {
     return (
       <div className="row todo-header">
         <div className="col-12">
           <div className="row">
-            <div className="col-sm-12 col-md-4">
-              <h1 id="header-title">AudioLog</h1>
+            <div className="col-sm-12 col-md-3">
+              <h1>AudioLog</h1>
             </div>
-            <div className="col-sm-6 col-md-3">
-              <p />
+            <div className="col-sm-6 col-md-4">
+              <p> A platform for sharing sounds and music </p>
             </div>
             <div className="col-sm-6 col-md-5">
               <div id="nav-header-z" className="row">
@@ -58,9 +54,6 @@ class Header extends Component {
                   >
                     Your Profile
                   </a>
-                  {/* <button className="nav-link-z" onClick={this.handleClick}>
-                    Your Profile
-                  </button> */}
                   <a
                     className="nav-link-z"
                     onClick={() => this.logOutUser()}

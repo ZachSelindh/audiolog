@@ -82,7 +82,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div className="container">
-        <div id="display-area-z" className="col-8 login-page">
+        <div className="display-area-z col-8 login-page">
           <h1>User Login</h1>
           <p> Enter your username and password </p>
           <form

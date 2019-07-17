@@ -38,7 +38,7 @@ class CreateBar extends Component {
   render() {
     return (
       <div>
-        <h1>Enter new Post:</h1>
+        <h1>Enter your new Post:</h1>
         <form
           className="post-form"
           autoComplete="off"

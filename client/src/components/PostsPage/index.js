@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "../Header";
 import API from "../../utils/API";
-import CreateBar from "../CreateBar";
 import PostItem from "../PostItem";
 import history from "../../utils/history";
 import "./style.css";
@@ -53,10 +52,8 @@ class PostsPage extends Component {
       <div>
         <Header />
         <div className="container">
-          <div id="display-area-z" className="col-8">
-            {/* Passing function as prop in order to refresh call after todo is submitted. */}
-            <CreateBar calltodb={this.calltodb} />
-            <h1>Todo List:</h1>
+          <div className="display-area-z col-8">
+            <h1>Posts:</h1>
             {this.state.pulledPosts.length ? (
               this.state.pulledPosts.map(Post => {
                 return (

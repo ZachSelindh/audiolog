@@ -1,7 +1,7 @@
 #display-area-z {
   margin: 5% auto 5% auto;
-  background-color: rgb(255, 255, 255, 0.7);
-  border: 3px dashed black;
+  background-color: rgb(255, 255, 255, 0.5);
+  border: 2px solid black;
 }
 
 #display-area-z h1 {

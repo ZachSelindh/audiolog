@@ -66,7 +66,7 @@ class ProfilePage extends Component {
       <div>
         <Header />
         <div className="container">
-          <div id="display-area-z" className="col-8">
+          <div className="display-area-z col-8">
             <h1> Profile Page </h1>
             <br />
             <img

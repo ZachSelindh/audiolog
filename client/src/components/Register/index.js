@@ -14,7 +14,8 @@ class RegisterPage extends Component {
       errors: [],
       registered: false,
       holdingPhotoURL: "",
-      holdingUsername: ""
+      holdingUsername: "",
+      holdingEmail: ""
     };
   }
 
@@ -39,6 +40,7 @@ class RegisterPage extends Component {
             this.setState({
               holdingUsername: this.state.username,
               holdingPhotoURL: this.state.photoURL,
+              holdingEmail: this.state.email,
               registered: true
             });
             this.setState({
@@ -84,7 +86,7 @@ class RegisterPage extends Component {
   render() {
     return (
       <div className="container">
-        <div id="display-area-z" className="register-page col-12">
+        <div className="display-area-z register-page col-12">
           <div className="row">
             <div id="user-display" className=" col-sm-12 col-md-4">
               <img
@@ -107,6 +109,11 @@ class RegisterPage extends Component {
                 {this.state.registered
                   ? this.state.holdingUsername
                   : this.state.username}
+              </h2>
+              <h2>
+                {this.state.registered
+                  ? this.state.holdingEmail
+                  : this.state.email}
               </h2>
             </div>
             <div className="col-sm-12 col-md-8">
