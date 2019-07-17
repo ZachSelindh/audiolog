@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../utils/API";
+import history from "../../utils/history";
 import "./style.css";
 
 class RegisterPage extends Component {
@@ -18,6 +19,15 @@ class RegisterPage extends Component {
       holdingEmail: ""
     };
   }
+
+  componentWillMount = () => {
+    API.checkToken(localStorage.getItem("token"))
+      .then(res => {
+        console.log(res.data.message);
+        history.push("/");
+      })
+      .catch(err => console.log(err));
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -67,7 +77,6 @@ class RegisterPage extends Component {
           }
         })
         .catch(err => {
-          console.log("HERE");
           var arrofErr = [...err.response.data.error.errors];
           this.setState({ errors: arrofErr });
         });
@@ -83,10 +92,15 @@ class RegisterPage extends Component {
     this.setState({ [name]: value });
   };
 
+  handleClick = () => {
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("token");
+  };
+
   render() {
     return (
       <div className="container">
-        <div className="display-area-z register-page col-12">
+        <div className="display-area-z register-page col-sm-12 col-md-8">
           <div className="row">
             <div id="user-display" className=" col-sm-12 col-md-4">
               <img
@@ -105,11 +119,11 @@ class RegisterPage extends Component {
                 height="200px"
                 width="200px"
               />
-              <h2>
+              <h1>
                 {this.state.registered
                   ? this.state.holdingUsername
                   : this.state.username}
-              </h2>
+              </h1>
               <h2>
                 {this.state.registered
                   ? this.state.holdingEmail
@@ -130,7 +144,7 @@ class RegisterPage extends Component {
                 </div>
               ) : (
                 <div>
-                  <h1>User Registration</h1>
+                  <h1 className="reg-title">User Registration</h1>
                   <form
                     className="todo-form"
                     autoComplete="off"
@@ -252,7 +266,7 @@ class RegisterPage extends Component {
                     <br />
                     <br />
                     {this.state.registered ? null : (
-                      <a href="/login">
+                      <a onClick={this.handleClick} href="/login">
                         <p>Take me to login</p>
                       </a>
                     )}

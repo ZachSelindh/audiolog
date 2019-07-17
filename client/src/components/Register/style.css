@@ -15,7 +15,15 @@
   padding: 2em;
 }
 
+#user-display img {
+  border: 2px solid black;
+}
+
 .registered-alert {
   margin-top: 1em;
   color: green;
+}
+
+.reg-title {
+  margin-top: 0.5em;
 }

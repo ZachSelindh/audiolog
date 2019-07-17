@@ -15,6 +15,9 @@ router.route("/register-user").post(
     check("username", "Username must be at least 5 characters").isLength({
       min: 5
     }),
+    /* check("username", "Username may not contain spaces").isLength({
+      min: 5
+    }), */
     check("username").custom((value, { req }) => {
       const checkUsername = req.body.username;
       // Check if username is already in use.
