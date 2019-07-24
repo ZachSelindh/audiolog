@@ -4,6 +4,7 @@ const Post = require("../../models/Post");
 const verifyToken = require("../../auth/verifyToken");
 const checkToken = require("../../auth/checkToken");
 const jwt = require("jsonwebtoken");
+const moment = require("moment");
 require("dotenv").config();
 
 // Get all posts for home page
@@ -37,7 +38,22 @@ router.get("/:postID", verifyToken, (req, res) => {
     res,
     // Get post info
     Post.findById(req.params.postID)
-      .then(foundPost => res.status(200).send(foundPost))
+      .then(foundPost => {
+        const {
+          _id,
+          title,
+          author,
+          description,
+          comments,
+          submitted_at
+        } = foundPost;
+        formatted_date = moment(submitted_at).format(
+          "dddd, MMMM Do YYYY, h:mm:ss a"
+        );
+        res
+          .status(200)
+          .json({ _id, title, author, description, comments, formatted_date });
+      })
       .catch(err => res.json(err))
   );
 });
