@@ -38,51 +38,73 @@ class RegisterPage extends Component {
       this.state.photoURL.length &&
       this.state.email.length
     ) {
-      API.registerUser({
-        username: this.state.username,
-        password: this.state.password,
-        password2: this.state.password2,
-        photoURL: this.state.photoURL,
-        email: this.state.email
-      })
-        .then(res => {
-          if (res.status === 200) {
-            this.setState({
-              holdingUsername: this.state.username,
-              holdingPhotoURL: this.state.photoURL,
-              holdingEmail: this.state.email,
-              registered: true
-            });
-            this.setState({
-              username: "",
-              password: "",
-              password2: "",
-              photoURL: "",
-              email: "",
-              errors: []
-            });
-            API.loginNewUser(res.data.newUser)
-              .then(response => {
-                localStorage.setItem("token", response.data.token);
-                localStorage.setItem(
-                  "currentUser",
-                  response.data.foundUser._id
-                );
-              })
-              .catch(err =>
-                console.log("Problem with login after register", err)
-              );
-          } else {
-            console.log(res);
-          }
-        })
-        .catch(err => {
-          var arrofErr = [...err.response.data.error.errors];
-          this.setState({ errors: arrofErr });
-        });
-    } else {
       var currentErrors = this.state.errors;
-      currentErrors.push({ param: "top", msg: "All fields must be filled in" });
+      if (this.state.username.length < 5) {
+        currentErrors.push({
+          param: "username",
+          msg: "Username must be at least 5 characters."
+        });
+      }
+      if (this.state.password.length < 5) {
+        currentErrors.push({
+          param: "password",
+          msg: "Password must be at least 5 characters."
+        });
+      }
+      if (
+        this.state.username.length > 5 &&
+        this.state.password.length > 5 &&
+        this.state.photoURL.length &&
+        this.state.email.length
+      ) {
+        API.registerUser({
+          username: this.state.username,
+          password: this.state.password,
+          password2: this.state.password2,
+          photoURL: this.state.photoURL,
+          email: this.state.email
+        })
+          .then(res => {
+            if (res.status === 200) {
+              this.setState({
+                holdingUsername: this.state.username,
+                holdingPhotoURL: this.state.photoURL,
+                holdingEmail: this.state.email,
+                registered: true
+              });
+              this.setState({
+                username: "",
+                password: "",
+                password2: "",
+                photoURL: "",
+                email: "",
+                errors: []
+              });
+              API.loginNewUser(res.data.newUser)
+                .then(response => {
+                  localStorage.setItem("token", response.data.token);
+                  localStorage.setItem(
+                    "currentUser",
+                    response.data.foundUser._id
+                  );
+                })
+                .catch(err =>
+                  console.log("Problem with login after register", err)
+                );
+            } else {
+              console.log(res);
+            }
+          })
+          .catch(err => {
+            var arrofErr = [...err.response.data.error.errors];
+            this.setState({ errors: arrofErr });
+          });
+      }
+    } else {
+      currentErrors.push({
+        param: "top",
+        msg: "All fields must be filled in."
+      });
       this.setState({ errors: currentErrors });
     }
   };

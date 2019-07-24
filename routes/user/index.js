@@ -30,6 +30,9 @@ router.route("/register-user").post(
         }
       });
     }),
+    check("password", "Password must be at least 5 characters").isLength({
+      min: 5
+    }),
     check("password").custom((value, { req }) => {
       // Helpful code on StackOverflow for custom check in express-validator!
       if (value !== req.body.password2) {

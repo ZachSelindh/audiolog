@@ -69,7 +69,7 @@ class LoginPage extends Component {
         });
     } else {
       this.setState({
-        errors: [{ nameError: "You must fill in both fields" }]
+        errors: [{ nameError: "You must fill in both fields." }]
       });
     }
   };
