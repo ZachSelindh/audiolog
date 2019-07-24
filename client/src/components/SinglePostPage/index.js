@@ -62,6 +62,22 @@ class SinglePostPage extends Component {
           <div className="display-area-z col-8">
             <div className="row">
               <div className="col-12">
+                <div className="row author-sec">
+                  <div className="col-3">
+                    <img
+                      alt={this.state.username}
+                      src={this.state.photoURL}
+                      height="100px"
+                      width="100px"
+                    />
+                  </div>
+                  <div className="col-4">
+                    <h1>{this.state.username}</h1>
+                  </div>
+                  <div className="col-5">
+                    <p> Posted at: {this.state.submitted_at}</p>
+                  </div>
+                </div>
                 <h1>{this.state.title}</h1>
                 <p>{this.state.description}</p>
               </div>

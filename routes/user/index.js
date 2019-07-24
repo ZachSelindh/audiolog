@@ -146,7 +146,6 @@ router.get("/get-user/:userID", verifyToken, (req, res) => {
     res,
     User.findById(req.params.userID)
       .then(user => {
-        console.log(user);
         const { username, photoURL, email } = user;
         res.status(200).send({ username, photoURL, email });
       })
