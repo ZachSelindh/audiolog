@@ -9,7 +9,10 @@ class SinglePostPage extends Component {
     super(props);
     this.state = {
       title: "",
-      description: ""
+      author: "",
+      description: "",
+      submitted_at: "",
+      comments: []
     };
   }
 
@@ -33,12 +36,13 @@ class SinglePostPage extends Component {
   };
 
   componentDidMount = () => {
-    console.log(this.props.location.pathname.replace("/post/", ""));
-    API.getPost(
-      this.props.location.pathname.replace("/post/", ""),
-      localStorage.getItem("token")
-    )
-      .then(res => console.log(res))
+    var thisPost = this.props.location.pathname.replace("/post/", "");
+    console.log(thisPost);
+    API.getPost(thisPost, localStorage.getItem("token"))
+      .then(res => {
+        const { title, author, description, submitted_at, comments } = res.data;
+        this.setState({ title, author, description, submitted_at, comments });
+      })
       .catch(err => console.log(err));
   };
 
@@ -51,7 +55,8 @@ class SinglePostPage extends Component {
           <div className="display-area-z col-8">
             <div className="row">
               <div className="col-12">
-                <h1>Post title</h1>
+                <h1>{this.state.title}</h1>
+                <p>{this.state.description}</p>
               </div>
             </div>
           </div>

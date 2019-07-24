@@ -37,7 +37,7 @@ router.get("/:postID", verifyToken, (req, res) => {
     res,
     // Get post info
     Post.findById(req.params.postID)
-      .then(foundPost => res.status.send(foundPost))
+      .then(foundPost => res.status(200).send(foundPost))
       .catch(err => res.json(err))
   );
 });
