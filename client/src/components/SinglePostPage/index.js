@@ -10,6 +10,8 @@ class SinglePostPage extends Component {
     this.state = {
       title: "",
       author: "",
+      username: "",
+      photoURL: "",
       description: "",
       submitted_at: "",
       comments: []
@@ -37,11 +39,16 @@ class SinglePostPage extends Component {
 
   componentDidMount = () => {
     var thisPost = this.props.location.pathname.replace("/post/", "");
-    console.log(thisPost);
     API.getPost(thisPost, localStorage.getItem("token"))
       .then(res => {
         const { title, author, description, submitted_at, comments } = res.data;
         this.setState({ title, author, description, submitted_at, comments });
+        API.getUser(author, localStorage.getItem("token"))
+          .then(res => {
+            const { username, photoURL } = res.data;
+            this.setState({ username, photoURL });
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   };

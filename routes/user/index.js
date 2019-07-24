@@ -144,10 +144,11 @@ router.get("/get-user/:userID", verifyToken, (req, res) => {
   checkToken(
     req,
     res,
-    User.findOne({ _id: req.params.userID })
+    User.findById(req.params.userID)
       .then(user => {
+        console.log(user);
         const { username, photoURL, email } = user;
-        res.send({ username, photoURL, email });
+        res.status(200).send({ username, photoURL, email });
       })
       .catch(err => res.status(422).json(err))
   );
