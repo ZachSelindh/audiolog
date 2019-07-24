@@ -77,7 +77,7 @@ class SinglePostPage extends Component {
               <div className="col-12">
                 <div className="row author-sec">
                   <h1>{this.state.title}</h1>
-                  <div className="col-3">
+                  <div className="col-lg-3 col-md-6">
                     <img
                       alt={this.state.username}
                       src={this.state.photoURL}
@@ -85,10 +85,10 @@ class SinglePostPage extends Component {
                       width="100px"
                     />
                   </div>
-                  <div className="col-4">
+                  <div className="col-lg-4 col-md-6">
                     <h1>{this.state.username}</h1>
                   </div>
-                  <div className="col-5">
+                  <div className="col-lg-5 col-md-12">
                     <p>
                       Posted at:
                       {this.state.formatted_date}
