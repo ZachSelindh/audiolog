@@ -8,6 +8,7 @@ class SinglePostPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      postID: "",
       title: "",
       author: "",
       username: "",
@@ -38,10 +39,11 @@ class SinglePostPage extends Component {
   };
 
   componentDidMount = () => {
-    var thisPost = this.props.location.pathname.replace("/post/", "");
-    API.getPost(thisPost, localStorage.getItem("token"))
+    this.setState({
+      postID: this.props.location.pathname.replace("/post/", "")
+    });
+    API.getPost(this.state.postID, localStorage.getItem("token"))
       .then(res => {
-        console.log(res.data);
         const {
           title,
           author,
