@@ -42,7 +42,13 @@ class SinglePostPage extends Component {
     API.getPost(thisPost, localStorage.getItem("token"))
       .then(res => {
         const { title, author, description, submitted_at, comments } = res.data;
-        this.setState({ title, author, description, submitted_at, comments });
+        this.setState({
+          title,
+          author,
+          description,
+          submitted_at,
+          comments
+        });
         API.getUser(author, localStorage.getItem("token"))
           .then(res => {
             const { username, photoURL } = res.data;
@@ -63,6 +69,7 @@ class SinglePostPage extends Component {
             <div className="row">
               <div className="col-12">
                 <div className="row author-sec">
+                  <h1>{this.state.title}</h1>
                   <div className="col-3">
                     <img
                       alt={this.state.username}
@@ -75,10 +82,12 @@ class SinglePostPage extends Component {
                     <h1>{this.state.username}</h1>
                   </div>
                   <div className="col-5">
-                    <p> Posted at: {this.state.submitted_at}</p>
+                    <p>
+                      Posted at:
+                      {this.state.submitted_at}
+                    </p>
                   </div>
                 </div>
-                <h1>{this.state.title}</h1>
                 <p>{this.state.description}</p>
               </div>
             </div>

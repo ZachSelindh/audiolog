@@ -42,7 +42,7 @@ router.get("/:postID", verifyToken, (req, res) => {
   );
 });
 
-// Get all todos by a particular author
+// Get all posts by a particular author
 router.get("/author/:userID", verifyToken, (req, res) => {
   checkToken(
     req,
