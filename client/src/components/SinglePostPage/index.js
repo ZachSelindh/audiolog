@@ -77,27 +77,25 @@ class SinglePostPage extends Component {
         <Header />
 
         <div className="container todo-item">
-          <div className="display-area-z col-8">
+          <div className="display-area-z col-12">
             <div className="row">
               <div className="col-12">
                 <div className="row author-sec">
-                  <h1>{this.state.title}</h1>
-                  <div className="col-lg-3 col-md-6">
+                  <div className="col-2">
                     <img
                       alt={this.state.username}
                       src={this.state.photoURL}
                       height="100px"
                       width="100px"
                     />
-                  </div>
-                  <div className="col-lg-4 col-md-6">
                     <h1>{this.state.username}</h1>
                   </div>
-                  <div className="col-lg-5 col-md-12">
+                  <div className="col-10">
+                    <h1>{this.state.title}</h1>
                     <p>Posted at: {this.state.formatted_date}</p>
+                    <h4>{this.state.description}</h4>
                   </div>
                 </div>
-                <p>{this.state.description}</p>
               </div>
             </div>
           </div>
