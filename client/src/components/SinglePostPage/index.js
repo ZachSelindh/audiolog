@@ -42,7 +42,10 @@ class SinglePostPage extends Component {
     this.setState({
       postID: this.props.location.pathname.replace("/post/", "")
     });
-    API.getPost(this.state.postID, localStorage.getItem("token"))
+    API.getPost(
+      this.props.location.pathname.replace("/post/", ""),
+      localStorage.getItem("token")
+    )
       .then(res => {
         const {
           title,
@@ -91,10 +94,7 @@ class SinglePostPage extends Component {
                     <h1>{this.state.username}</h1>
                   </div>
                   <div className="col-lg-5 col-md-12">
-                    <p>
-                      Posted at:
-                      {this.state.formatted_date}
-                    </p>
+                    <p>Posted at: {this.state.formatted_date}</p>
                   </div>
                 </div>
                 <p>{this.state.description}</p>

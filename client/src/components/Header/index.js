@@ -14,7 +14,6 @@ class Header extends Component {
         })
         .catch(err => {
           if (err.response.status === 403) {
-            this.setState({ loggedIn: false });
             history.push({
               pathname: "/login",
               state: { redirErr: "Your session has expired. Please log in" }
@@ -22,6 +21,10 @@ class Header extends Component {
           }
         });
     } else {
+      history.push({
+        pathname: "/login",
+        state: { redirErr: "Your session has expired. Please log in" }
+      });
       console.log("No token found");
     }
   };

@@ -46,6 +46,7 @@ class ProfilePage extends Component {
   };
 
   componentDidMount = () => {
+    console.log(this.props.location.pathname.replace("/profile/", ""));
     API.getUser(
       this.props.location.pathname.replace("/profile/", ""),
       localStorage.getItem("token")
