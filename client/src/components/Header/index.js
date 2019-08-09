@@ -29,9 +29,21 @@ class Header extends Component {
     }
   };
 
-  logOutUser = () => {
+  handleHome = event => {
+    event.preventDefault();
+    history.push("/");
+  };
+
+  handleProfile = event => {
+    event.preventDefault();
+    history.push(`/profile/${localStorage.getItem("currentUser")}`);
+  };
+
+  logOutUser = event => {
+    event.preventDefault();
     localStorage.removeItem("currentUser");
     localStorage.removeItem("token");
+    history.push("/login");
   };
 
   render() {
@@ -48,22 +60,15 @@ class Header extends Component {
             <div className="col-sm-6 col-md-5">
               <div id="nav-header-z" className="row">
                 <div className="nav-bar-z">
-                  <a className="nav-link-z" href="/">
+                  <button className="nav-link-z" onClick={this.handleHome}>
                     Home
-                  </a>
-                  <a
-                    className="nav-link-z"
-                    href={`/profile/${localStorage.getItem("currentUser")}`}
-                  >
+                  </button>
+                  <button className="nav-link-z" onClick={this.handleProfile}>
                     Your Profile
-                  </a>
-                  <a
-                    className="nav-link-z"
-                    onClick={() => this.logOutUser()}
-                    href="/login"
-                  >
+                  </button>
+                  <button className="nav-link-z" onClick={this.logOutUser}>
                     Logout
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>
