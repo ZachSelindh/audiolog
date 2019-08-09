@@ -32,7 +32,6 @@
   padding: 0.5em;
   background-color: rgb(255, 255, 255, 0);
   border: none;
-  outline: none;
 }
 
 .nav-bar-z {
@@ -42,4 +41,8 @@
 .nav-link-z:hover {
   cursor: pointer;
   text-decoration: underline;
+}
+
+.nav-link-z:focus {
+  outline: 0;
 }

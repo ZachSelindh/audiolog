@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "../Header";
+import history from "../../utils/history";
 import API from "../../utils/API";
 import "./style.css";
 
@@ -13,6 +14,11 @@ class CreateBar extends Component {
       submitted: false
     };
   }
+
+  handleHome = event => {
+    event.preventDefault();
+    history.push("/");
+  };
 
   handleSubmit = event => {
     event.preventDefault();
@@ -52,9 +58,9 @@ class CreateBar extends Component {
                 <h1> Your Post has been submitted! </h1>
                 <br />
                 <br />
-                <a href="/">
+                <button onClick={this.handleHome}>
                   <h4>Take me to the Home Page</h4>
-                </a>
+                </button>
               </div>
             ) : (
               <div>
