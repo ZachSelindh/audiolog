@@ -17,7 +17,7 @@ class DeleteButton extends Component {
       )
         .then(res => {
           console.log(res.data.deletedPost);
-          this.props.calltodb();
+          this.props.handleDelete();
         })
         .catch(err => {
           if (err.response.status === 403) {

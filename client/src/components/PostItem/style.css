@@ -14,3 +14,7 @@
   cursor: pointer;
   text-decoration: underline;
 }
+
+.delete-notif {
+  color: red;
+}

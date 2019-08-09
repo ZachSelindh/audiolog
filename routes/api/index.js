@@ -101,7 +101,9 @@ router.delete("/post/delete/", (config, res) => {
         const { id, user } = config.body;
         Post.findOneAndDelete({ _id: id, author: user })
           .then(deletedPost => {
-            res.status(200).json({ deletedPost });
+            res.status(200).json({
+              deletedPost
+            });
           })
           .catch(err => res.status(422).send(err));
       }

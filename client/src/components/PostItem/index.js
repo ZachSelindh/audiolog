@@ -12,7 +12,8 @@ class PostItem extends Component {
       username: "",
       photoURL: "",
       validUser: false,
-      currentAuthor: false
+      currentAuthor: false,
+      deleted: false
     };
   }
 
@@ -51,54 +52,67 @@ class PostItem extends Component {
     history.push(`/post/${this.props.postID}`);
   };
 
+  handleDelete = () => {
+    this.setState({ deleted: true });
+  };
+
   render() {
     return (
       <div className="container todo-item">
-        <div className="row" />
-        <div className="row">
-          <div className="col-6">
-            <h1 onClick={() => this.handlePostClick()}>{this.props.title}</h1>
+        {this.state.deleted ? (
+          <div className="row">
+            <h3 className="delete-notif">Post successfully deleted</h3>
           </div>
-          <div className="col-1">
-            <img
-              alt="author"
-              src={this.state.photoURL}
-              height="50px"
-              width="50px"
-            />
-          </div>
-          <div className="col-2">
-            <h5>
-              {this.state.validUser ? (
-                <span className="user-link" onClick={() => this.handleClick()}>
-                  {this.state.username}
-                </span>
-              ) : (
-                <span>{this.state.username}</span>
-              )}
-            </h5>
-          </div>
-          <div className="col-3">
-            {this.state.currentAuthor ? (
-              <div>
-                {this.props.completed ? null : (
-                  <div>
-                    <UpdateButton
-                      postID={this.props.postID}
-                      title={this.props.title}
-                      description={this.props.description}
-                    />
-                  </div>
+        ) : (
+          <div className="row">
+            <div className="col-6">
+              <h1 onClick={() => this.handlePostClick()}>{this.props.title}</h1>
+            </div>
+            <div className="col-1">
+              <img
+                alt="author"
+                src={this.state.photoURL}
+                height="50px"
+                width="50px"
+              />
+            </div>
+            <div className="col-2">
+              <h5>
+                {this.state.validUser ? (
+                  <span
+                    className="user-link"
+                    onClick={() => this.handleClick()}
+                  >
+                    {this.state.username}
+                  </span>
+                ) : (
+                  <span>{this.state.username}</span>
                 )}
-                <DeleteButton
-                  postID={this.props.postID}
-                  author={this.props.author}
-                  calltodb={this.props.calltodb}
-                />
-              </div>
-            ) : null}
+              </h5>
+            </div>
+            <div className="col-3">
+              {this.state.currentAuthor ? (
+                <div>
+                  {this.props.completed ? null : (
+                    <div>
+                      <UpdateButton
+                        postID={this.props.postID}
+                        title={this.props.title}
+                        description={this.props.description}
+                      />
+                    </div>
+                  )}
+                  <DeleteButton
+                    postID={this.props.postID}
+                    author={this.props.author}
+                    calltodb={this.props.calltodb}
+                    handleDelete={this.handleDelete.bind(this)}
+                  />
+                </div>
+              ) : null}
+            </div>
           </div>
-        </div>
+        )}
       </div>
     );
   }

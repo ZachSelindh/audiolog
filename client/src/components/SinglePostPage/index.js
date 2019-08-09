@@ -75,7 +75,6 @@ class SinglePostPage extends Component {
     return (
       <div>
         <Header />
-
         <div className="container todo-item">
           <div className="display-area-z col-12">
             <div className="row">
