@@ -58,7 +58,7 @@ class CreateBar extends Component {
                 <h1> Your Post has been submitted! </h1>
                 <br />
                 <br />
-                <button onClick={this.handleHome}>
+                <button className="submit-post-btn" onClick={this.handleHome}>
                   <h4>Take me to the Home Page</h4>
                 </button>
               </div>

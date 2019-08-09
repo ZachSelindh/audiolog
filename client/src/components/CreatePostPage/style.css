@@ -11,3 +11,17 @@
 .error-message {
   color: yellow;
 }
+
+.submit-post-btn {
+  background-color: rgb(255, 255, 255, 0);
+  border: none;
+}
+
+.submit-post-btn:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.submit-post-btn:focus {
+  outline: 0;
+}
