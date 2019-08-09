@@ -54,6 +54,7 @@ class PostItem extends Component {
 
   handleDelete = () => {
     this.setState({ deleted: true });
+    setTimeout(this.props.calltodb, 1000);
   };
 
   render() {
