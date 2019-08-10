@@ -89,7 +89,7 @@ class SinglePostPage extends Component {
                     />
                     <h1>{this.state.username}</h1>
                   </div>
-                  <div className="col-10">
+                  <div className="col-10 post-page-sec">
                     <h1>{this.state.title}</h1>
                     <p>Posted at: {this.state.formatted_date}</p>
                     <h4>{this.state.description}</h4>
