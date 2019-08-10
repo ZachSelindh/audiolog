@@ -79,8 +79,8 @@ class SinglePostPage extends Component {
           <div className="display-area-z col-12">
             <div className="row">
               <div className="col-12">
-                <div className="row author-sec">
-                  <div className="col-2">
+                <div className="row">
+                  <div className="col-2 author-sec">
                     <img
                       alt={this.state.username}
                       src={this.state.photoURL}
@@ -89,7 +89,7 @@ class SinglePostPage extends Component {
                     />
                     <h1>{this.state.username}</h1>
                   </div>
-                  <div className="col-10 post-page-sec">
+                  <div className="col-8 post-page-sec">
                     <h1>{this.state.title}</h1>
                     <p>Posted at: {this.state.formatted_date}</p>
                     <h4>{this.state.description}</h4>
